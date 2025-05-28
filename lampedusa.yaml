@@ -1,0 +1,46 @@
+---
+esphome:
+  name: lampedusa
+  friendly_name: desk lamp
+  comment: LEDVANCE E27 DIM Bulb
+
+bk72xx:
+  board: generic-bk7231t-qfn32-tuya
+
+# Make sure logging is not using the serial port
+logger:
+  baud_rate: 0
+
+# Enable Home Assistant API
+api:
+
+ota:
+  - platform: esphome
+
+# WiFi connection
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+
+captive_portal:
+
+# Enable Web server
+web_server:
+
+prometheus:
+
+output:
+  - platform: libretiny_pwm
+    id: output_brightness
+    pin: P7
+
+light:
+  - platform: monochromatic
+    name: None
+    output: output_brightness
+    effects:
+      - flicker:
+          name: "Flicker"
+      - pulse:
+          name: "Pulse"
